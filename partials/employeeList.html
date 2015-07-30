@@ -1,0 +1,138 @@
+<div class="row well well-lg heading_text text-aligning">HEADSPRINGS</div>  
+<div class="row text-aligning">Welcome to Headspring Employee Directory..!!</div>
+<br>
+<div class="row text-aligning">Please start typing to begin search. You may refine search with given advanced option.</div>
+<br>
+<br>
+
+<div class="row">
+    <div class="col-md-4">
+        <br>
+        <p class="row"><strong>Plese note:</strong>This directory is updated everyday. Please allow us 2-3 business days
+            to update information in database for new employees. Due to company policy, plese do not share any kind of information
+            with external contacts or clients. Violation of polict will not be accepted.</p>
+    </div>
+    <div class="col-md-2">&nbsp;</div>
+    <div class="row col-md-6">
+        
+            <h3 class="row text-aligning">You are looking for...</h3>
+            <div class="row">
+                <input ng-model="query" class="col-md-12 col-sm-12 col-xs-12 form-control" placeholder="search employee" autofocus>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <label class="radio-inline">
+                        <input ng-model="direction" type="radio" name="byDirection" checked>ascending
+                    </label>
+                    <label class="radio-inline">
+                        <input ng-model="direction" type="radio" name="byDirection" value="reverse">descending
+                    </label>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <label>by:</label>
+                    <select class="form-control" ng-model="listOrder">
+                        <option value="firstName">first name</option>
+                        <option value="lastName">last name</option>
+                        <option value="jobRole">job role</option>
+                    </select> 
+                </div>
+            </div>
+        
+    </div>            
+</div> 
+
+<div class="row">&nbsp;</div>
+<div class="row">&nbsp;</div>
+
+<!-- Add new Employee Div -->
+<div class="row table-responsive">
+    <h3> Enter new Employee </h3>
+    <table>
+        <tbody>
+            <tr>
+                <td class="col-md-2">
+                    <input class="form-control" ng-model="newEmp.firstName" placeholder="Enter First Name">
+                </td>
+                <td class="col-md-2">
+                    <input class="form-control" ng-model="newEmp.lastName" placeholder="Enter Last Name">
+                </td>
+                <td class="col-md-2">
+                    <input class="form-control" ng-model="newEmp.jobRole" placeholder="Enter job title">
+                </td>
+                <td class="col-md-2">
+                    <input class="form-control" ng-model="newEmp.phone" placeholder="Enter phone number">
+                </td>
+                <td class="col-md-2">
+                    <input class="form-control" ng-model="newEmp.email" placeholder="Enter email address">
+                </td>
+                <td class="col-md-2">
+                    <input type="button" class="btn btn-success" value="save" ng-click="saveNewContact()">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="row">&nbsp;</div>
+<div class="row">&nbsp;</div>
+<div class="row">&nbsp;</div>
+
+<!-- List of all employee Div -->
+<div class="row table-responsive">
+    <h3>List of Current Employees at HeadSprings</h3>
+    <table class="table table-hover table-bordered table-condensed">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Job Role</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in employeeList | filter:query | orderBy:listOrder:direction">
+                <td>
+                    <span ng-hide="item.editable">{{item.firstName}}</span>
+                    <input class="form-control" ng-show="item.editable" ng-model="item.firstName" autofocus>
+                </td>
+
+                 <td>
+                    <span ng-hide="item.editable">{{item.lastName}}</span>
+                    <input class="form-control" ng-show="item.editable" ng-model="item.lastName">
+                </td>
+
+                 <td>
+                    <span ng-hide="item.editable">{{item.jobRole}}</span>
+                    <input class="form-control" ng-show="item.editable" ng-model="item.jobRole">
+                </td>
+
+                 <td>
+                    <span ng-hide="item.editable">{{item.phone}}</span>
+                    <input class="form-control" ng-show="item.editable" ng-model="item.phone">
+                </td>
+
+                 <td>
+                    <span ng-hide="item.editable">{{item.email}}</span>
+                    <input class="form-control" ng-show="item.editable" ng-model="item.email">
+                </td>
+
+                <td class="warning">
+                    <span ng-hide="item.editable">
+                        <a ng-click="editItem(item)">Edit</a>
+                        |
+                        <a ng-click="deleteItem(item.id)">Delete</a>
+                    </span>
+
+                    <span ng-show="item.editable">
+                        <a ng-click="saveItem(item)">Save</a>
+                        |
+                        <a ng-click="cancelEditing(item, item.id)">Cancel</a>
+                    </span>
+                </td>
+            </tr>     
+        </tbody>
+    </table>
+</div>
